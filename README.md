@@ -1,37 +1,98 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+### 제목
 
-## Getting Started
+---
 
-First, run the development server:
+- **이름**: OneBite Books
+- **설명**: Next.js(App Router)와 TypeScript로 제작된 간단한 책 검색 및 리뷰 작성 웹 애플리케이션입니다.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### 📝 **프로젝트 개요**
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **목적**:
+    
+    학습을 목적으로 Next.js의 App Router와 Supabase를 활용하여 실제 동작하는 CRUD 기반 애플리케이션 제작. 이를 통해 데이터 흐름 관리, 서버와 클라이언트 간 상호작용, 상태 관리 등을 경험하였습니다.
+    
+- **주요 기능**:
+    1. **책 검색 및 조회**
+        - 키워드를 이용한 책 검색 기능.
+        - 모달 창을 통해 책의 상세 정보를 확인.
+    2. **댓글 시스템**
+        - 책 상세 페이지에서 댓글 작성 및 삭제 가능.
+        - 실시간으로 댓글이 반영되도록 데이터 갱신 처리(`revalidateTag`).
+    3. **추천 도서 목록 조회**
+        - 서버에서 제공하는 랜덤 도서 추천 API를 활용하여 도서 목록 표시.
+    4. **모든 도서 조회**
+        - 전체 도서를 불러오고 정렬된 형태로 화면에 렌더링.
+- **데이터 저장 방식**:
+    - **Supabase**를 사용하여 백엔드와의 데이터 동기화 및 상태 관리.
+    - API 호출과 캐싱(`next/cache`)을 결합하여 효율적 데이터 조회.
+- 배포 링크 :
+    - [📚원바이트 북스](https://onebite-books-app-sand.vercel.app/)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
+### 💻 기술스택
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Front - End | `Next.Js`(App Router)  `TypeScript` |
+| --- | --- |
+| Back - End | `SupaBase` |
+| 배포 | `Vercel` |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### **🚀 주요 기능 상세**
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 1. **책 검색 및 상세 보기**
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# onebite-books
+- 사용자가 키워드를 입력하면 API를 통해 관련 도서를 검색.
+- 검색된 도서 목록은 컴포넌트로 렌더링되며, 클릭 시 모달 창에서 상세 정보 확인 가능.
+
+### 2. **댓글 작성 및 삭제**
+
+- 사용자 입력을 받아 서버에 댓글을 저장(`POST`).
+- 댓글 삭제(`DELETE`) 시 실시간 데이터 갱신을 위해 `revalidateTag` 사용.
+- API 요청 실패 시 에러 메시지를 표시하여 사용자 경험 개선.
+
+### 3. **추천 도서 목록 조회**
+
+- 서버에서 제공하는 랜덤 추천 도서 API를 호출.
+- `next/cache`를 이용한 데이터 캐싱으로 성능 최적화.
+
+### 4. **모든 도서 조회**
+
+- 전체 도서 데이터는 정렬된 형태로 클라이언트에 렌더링.
+- 네트워크 에러 발생 시 fallback UI 제공.
+
+### **💡  배운 점**
+
+---
+
+1. **Next.js App Router와 서버 컴포넌트 활용**
+    - `App Router`와 서버 컴포넌트를 통해 페이지 간 상태 관리 및 데이터 처리의 효율성을 경험.
+    - 서버에서 데이터를 처리하고 클라이언트 컴포넌트에 전달하는 구조를 구현하며, 서버-클라이언트 간 역할 구분을 이해.
+    
+2. **Supabase를 활용한 백엔드 경험**
+    - Supabase로 데이터베이스를 설계하고 CRUD API를 작성하며 간단한 백엔드 개발 과정을 체험.
+    - 데이터베이스 보안과 권한 관리를 Supabase의 내장 기능으로 처리.
+    
+3. **캐싱과 데이터 재검증 처리**
+    - `next/cache`와 `revalidateTag`를 활용해 실시간 데이터 반영 처리.
+    - 댓글 작성 및 삭제 시 자동으로 화면이 갱신되도록 구현, 사용자 경험 개선.
+    
+4. **TypeScript로 코드 안정성 강화**
+    - `BookData`와 `ReviewData`와 같은 타입 정의를 통해 데이터 구조를 명확히 하고 오류를 사전에 방지.
+    - 타입 시스템의 강점을 활용하여 유지보수성을 높이고, 코드 품질을 개선.
+    
+5. **SEO와 동적 메타데이터 생성**
+    - `generateMetadata`를 사용해 검색 페이지와 상세 페이지의 동적 메타데이터를 생성.
+    - 페이지별 타이틀, 설명, Open Graph 이미지를 설정하여 검색 엔진 최적화(SEO)를 구현.
+    
+6. **React Suspense 및 에러 처리 학습**
+    - `Suspense`를 이용해 데이터 로딩 중에도 부드러운 사용자 경험 제공.
+    - 에러 발생 시 `reset`과 `router.refresh`를 결합하여 상태를 초기화하는 로직을 구성.
+    
+7. **프론트엔드와 백엔드 통합 경험**
+    - 프론트엔드와 백엔드를 통합하며 클라이언트와 서버 간 데이터 통신의 중요성을 이해.
+    - 실제 사용자와의 상호작용을 염두에 둔 UX/UI 설계를 경험.
