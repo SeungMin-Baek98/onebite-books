@@ -28,7 +28,7 @@
     - **Supabase**를 사용하여 백엔드와의 데이터 동기화 및 상태 관리.
     - API 호출과 캐싱(`next/cache`)을 결합하여 효율적 데이터 조회.
 - 배포 링크 :
-    - [📚원바이트 북스](https://onebite-books-app-sand.vercel.app/)
+    - [📚원바이트 북스](onebite-books-app-gold-gamma.vercel.app)
 
 
 ### 💻 기술스택
@@ -51,8 +51,7 @@
 
 ### 2. **댓글 작성 및 삭제**
 
-- 사용자 입력을 받아 서버에 댓글을 저장(`POST`).
-- 댓글 삭제(`DELETE`) 시 실시간 데이터 갱신을 위해 `revalidateTag` 사용.
+- 댓글 작성(`POST`) 및 댓글 삭제(`DELETE`)시 실시간 데이터 갱신을 위해 revalidateTag 사용.
 - API 요청 실패 시 에러 메시지를 표시하여 사용자 경험 개선.
 
 ### 3. **추천 도서 목록 조회**
@@ -63,26 +62,49 @@
 ### 4. **모든 도서 조회**
 
 - 전체 도서 데이터는 정렬된 형태로 클라이언트에 렌더링.
-- 네트워크 에러 발생 시 fallback UI 제공.
+- 네트워크 에러 발생 시 `fallback UI` 제공.
 
 ### **💡  배운 점**
 
 ---
 
-1. **Next.js App Router와 서버 컴포넌트 활용**
-    - `App Router`와 서버 컴포넌트를 통해 페이지 간 상태 관리 및 데이터 처리의 효율성을 경험.
-    - 서버에서 데이터를 처리하고 클라이언트 컴포넌트에 전달하는 구조를 구현하며, 서버-클라이언트 간 역할 구분을 이해.
+1. **Next.js App Router와 서버 컴포넌트(RSC) 활용**
+    - `App Router`를 통해 페이지 간 상태 관리 및 데이터 처리의 효율성 경험
+    - 서버에서 데이터를 처리하고 클라이언트로 전달하는 구조를 구현, 서버-클라이언트 간 역할 분리를 이해
+    - Route Groups 및 Parallel Routes를 통해 동적 라우팅 처리
+      > 책 상세페이지 클릭 시에는 모달 형태로 열리며, URL 직접 입력이나 새로고침 시에는 일반 페이지 형태로 전환되는 유연한 라우팅 구현
+      ```
+       src/app
+        ├── (with-searchbar)/
+        │   ├── search/
+        │   │   └── page.tsx
+        │   ├── error.tsx
+        │   ├── layout.tsx
+        │   ├── page.module.css
+        │   └── page.tsx
+        │
+        ├── @modal/
+        │   └── (.)book/
+        │       └── [id]/
+        │           ├── page.tsx      # 책 상세정보 모달
+        │           └── default.tsx   # 병렬 라우트 기본 렌더링 컴포넌트
+        │
+        └── ...
+      ```
+    - `Server Component` / `Client Component` 구분을 통해 성능 최적화 및 코드 스플리팅 구현
     
 2. **Supabase를 활용한 백엔드 경험**
-    - Supabase로 데이터베이스를 설계하고 CRUD API를 작성하며 간단한 백엔드 개발 과정을 체험.
-    - 데이터베이스 보안과 권한 관리를 Supabase의 내장 기능으로 처리.
+    - `.env` 설정, 테이블 및 인증 스키마 설계, `CRUD API` 연동 과정을 직접 실습
+    - 강의 기반으로 `Supabase CLI`를 통해 실습용 데이터베이스 구성
     
 3. **캐싱과 데이터 재검증 처리**
-    - `next/cache`와 `revalidateTag`를 활용해 실시간 데이터 반영 처리.
-    - 댓글 작성 및 삭제 시 자동으로 화면이 갱신되도록 구현, 사용자 경험 개선.
+    - `next/cache`, `next:tag["태그이름"]`, `revalidateTag("태그이름")` 등을 활용하여
+       > 댓글 작성/삭제 시 서버 캐시를 자동 무효화하고 실시간 반영 처리
+    - React 19v의 `useActionState()` 및 `server action` 파일과 연동하여
+       > 폼 제출 직후 `revalidateTag()`가 실행되어 클라이언트에 최신 댓글이 실시간 반영되는 동작을 경험
     
 4. **TypeScript로 코드 안정성 강화**
-    - `BookData`와 `ReviewData`와 같은 타입 정의를 통해 데이터 구조를 명확히 하고 오류를 사전에 방지.
+    - `BookData`, `ReviewData` 등 타입 정의를 통해 구조 명확화 및 런타임 오류 방지
     - 타입 시스템의 강점을 활용하여 유지보수성을 높이고, 코드 품질을 개선.
     
 5. **SEO와 동적 메타데이터 생성**
@@ -91,8 +113,4 @@
     
 6. **React Suspense 및 에러 처리 학습**
     - `Suspense`를 이용해 데이터 로딩 중에도 부드러운 사용자 경험 제공.
-    - 에러 발생 시 `reset`과 `router.refresh`를 결합하여 상태를 초기화하는 로직을 구성.
-    
-7. **프론트엔드와 백엔드 통합 경험**
-    - 프론트엔드와 백엔드를 통합하며 클라이언트와 서버 간 데이터 통신의 중요성을 이해.
-    - 실제 사용자와의 상호작용을 염두에 둔 UX/UI 설계를 경험.
+    - `reset()` + `router.refresh()`를 통해 에러 발생 시 초기화 처리 구성
