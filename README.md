@@ -27,7 +27,7 @@
 - **데이터 저장 방식**:
     - **Supabase**를 사용하여 백엔드와의 데이터 동기화 및 상태 관리.
     - API 호출과 캐싱(`next/cache`)을 결합하여 효율적 데이터 조회.
-- 배포 링크 :
+- 배포 링크 : [📚한입북스](https://onebite-books-app-gold-gamma.vercel.app/)
 
 
 ### 💻 기술스택
