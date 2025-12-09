@@ -28,7 +28,6 @@
     - **Supabase**를 사용하여 백엔드와의 데이터 동기화 및 상태 관리.
     - API 호출과 캐싱(`next/cache`)을 결합하여 효율적 데이터 조회.
 - 배포 링크 :
-    - [📚원바이트 북스](onebite-books-app-gold-gamma.vercel.app)
 
 
 ### 💻 기술스택
